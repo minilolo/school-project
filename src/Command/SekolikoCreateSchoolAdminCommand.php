@@ -18,7 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Class SekolikoCreateSchoolAdminCommand.
+ * Class SekolikoCreateSchoolAdminCommand.    nsy zavatra novaiko ty eeee, XD, fa tsy azoko le command tsy mande io ambany io
  */
 class SekolikoCreateSchoolAdminCommand extends Command
 {
