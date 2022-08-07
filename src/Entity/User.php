@@ -143,6 +143,16 @@ class User implements UserInterface
     private $isEnabled;
 
     /**
+     * @ORM\OneToMany(targetEntity=Payment::class, mappedBy="User")
+     */
+    private $payments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Payment::class, mappedBy="User")
+     */
+    private $LesPayments;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -151,6 +161,8 @@ class User implements UserInterface
         $this->classRooms = new ArrayCollection();
         $this->histories = new ArrayCollection();
         $this->isEnabled = false;
+        $this->payments = new ArrayCollection();
+        $this->LesPayments = new ArrayCollection();
     }
 
     /**
@@ -635,6 +647,66 @@ class User implements UserInterface
     public function setIsEnabled(?bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments[] = $payment;
+            $payment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getUser() === $this) {
+                $payment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getLesPayments(): Collection
+    {
+        return $this->LesPayments;
+    }
+
+    public function addLesPayment(Payment $lesPayment): self
+    {
+        if (!$this->LesPayments->contains($lesPayment)) {
+            $this->LesPayments[] = $lesPayment;
+            $lesPayment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesPayment(Payment $lesPayment): self
+    {
+        if ($this->LesPayments->removeElement($lesPayment)) {
+            // set the owning side to null (unless already changed)
+            if ($lesPayment->getUser() === $this) {
+                $lesPayment->setUser(null);
+            }
+        }
 
         return $this;
     }
