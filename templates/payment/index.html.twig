@@ -22,7 +22,7 @@
                         <th>Montant</th>
                         <th>Type</th> 
                         <th>Motif</th>   
-                        <th>date_payment</th>  
+                        <th>date payment</th>  
                     </tr>
                     </thead>
                     <tfoot>
@@ -30,7 +30,7 @@
                         <th>Montant</th>
                         <th>Type</th>   
                         <th>Motif</th>      
-                        <th>date_payment</th>  
+                        <th>date payment</th>  
                     </tr>
                     </tfoot>
                     <tbody>
@@ -45,9 +45,33 @@
                             
                         </tr>
                     {% endfor %}
+
+                    
                     </tbody>
                 </table>
+                
             </div>
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                    
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        {% for tot in total %}
+                            <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }}</li>
+                        {% endfor %}
+                        </ol>
+                        <ol class="breadcrumb">
+                        {% for sor in sortie %}
+                            <li class="breadcrumb-item active" aria-current="page">Somme des sorties : {{ sor }}</li>
+                        {% endfor %}
+                        </ol>
+                        <ol class="breadcrumb">
+                        {% for benefice in benefices %}
+                            <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }}</li>
+                        {% endfor %}
+                        </ol>
+            </nav>
+                </div>
+            
         </div>
     </div>
 {% endblock %}

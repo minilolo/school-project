@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Payment;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,9 +40,16 @@ class PaymentRepository extends ServiceEntityRepository
         }
     }
 
-    public function listEcolage(): void
+    public function findByMonth(string $date)
     {
-
+        return $this->createQueryBuilder('s')
+            ->where('s.date_payment > :today')
+            
+         
+            ->setParameter('today', $date)
+            
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

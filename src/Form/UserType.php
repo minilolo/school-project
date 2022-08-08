@@ -56,9 +56,7 @@ class UserType extends AbstractType
                     'label' => 'Date de naissance',
                     'widget' => 'single_text',
                     'html5' => false,
-                    'attr' => [
-                        'class' => 'datetimepicker',
-                    ],
+                    
                     'format' => 'Y-m-d H:i',
                 ]
             )

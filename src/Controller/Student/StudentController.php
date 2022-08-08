@@ -23,6 +23,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\Payment;
+use App\Repository\PaymentRepository;
 
 /**
  * Class StudentController.
@@ -31,6 +33,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class StudentController extends AbstractBaseController
 {
+    /**
+     * @var PaymentRepository
+     */
+    private $repositoryPayer;
+
     /**
      * @var StudentRepository
      */
@@ -64,16 +71,49 @@ class StudentController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(ClassRoom $class)
+    public function list(ClassRoom $class, PaymentRepository $repositoryPayer)
     {
+        
+        
         $studentList = $this->repository->findByClassSchoolYearField($this->getUser(), $class);
-
+        $StudentFarany = array();
+        $date = date('y-m-d');
+        $payment = $repositoryPayer->findByMonth($date);
+        
+        if ((sizeof($payment) - 1) >= 1){
+            for ($i = 0; $i <= (sizeof($payment) - 1); $i++) {
+                $studentPayer = $this->repository->findByEcolage($this->getUser(), $class, $payment[$i]);
+                $StudentFarany = array_push($studentPayer);
+            }
+        }
+        
+        
+        
         return $this->render(
             'admin/content/student/_student_list.html.twig',
             [
                 'students' => $studentList,
                 'classe' => $class,
+                'payer' => $StudentFarany
+                
             ]
+        );
+    }
+
+    /**
+     * @Route("/ecolageStudent/{classe}",name="student_ecolage",methods={"GET","POST"})
+     *
+     * @param ClassRoom $class
+     *
+     * @return Response
+     */
+    public function StudentEcolage(ClassRoom $class) 
+    {
+        
+        $studentPayer = $this->getUser();
+        var_dump($studentPayer->getRoles());
+        return $this->render(
+            'admin/content/student/_student_ecolage.html.twig'
         );
     }
 

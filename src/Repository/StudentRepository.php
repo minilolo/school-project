@@ -6,6 +6,7 @@
 namespace App\Repository;
 
 use App\Entity\ClassRoom;
+use App\Entity\Payment;
 use App\Entity\Student;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -65,6 +66,23 @@ class StudentRepository extends ServiceEntityRepository
             ->setParameter('status', false)
             ->setParameter('etsName', $user->getEtsName())
             ->setParameter('classRoom', $classRoom)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByEcolage(User $user, ClassRoom $classRoom, Payment $student)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.deletedAt is NULL')
+            ->andWhere('s.etsName = :etsName')
+            ->andWhere('s.classe = :classRoom')
+            ->andWhere('s.isRenvoie = :status')
+            ->andWhere('s.user = :student')
+            
+            ->setParameter('status', false)
+            ->setParameter('classRoom', $classRoom)
+            ->setParameter('student', $student->getUser())
+            ->setParameter('etsName', $user->getEtsName())
             ->getQuery()
             ->getResult();
     }

@@ -31,15 +31,33 @@ class PaymentController extends AbstractController
     #[Route('/payment', name: 'app_payment')]
     public function index(PaymentRepository $repository): Response
     {
+        $manisa = 0;
+        $sortie = 0;
+        $benefice = 0;
         $PaymentList = $repository->findAll();
-        var_dump($PaymentList[1]->getDatePayment()->format('Y-m-d'));
-
+        $entrer = $repository->findBy(
+            ['Type' => 'Entrer']
+        );
+        $sortieArray = $repository->findBy(
+            ['Type' => 'Sortie']
+        );
+       
+        
+        for ($i = 0; $i <= (sizeof($entrer) - 1); $i++){
+                $manisa = $manisa + intval($entrer[$i]->GetMontant());
+        }
+        for ($i = 0; $i <= (sizeof($sortieArray) - 1); $i++){
+            $sortie = $sortie + intval($sortieArray[$i]->GetMontant());
+        }
+        $benefice = $manisa - $sortie;
+        
         return $this->render(
             'payment/index.html.twig',
             [
                 'payments' => $PaymentList, 
-                
-                     
+                'total'  =>   array($manisa),
+                'sortie' => array($sortie),
+                'benefices' => array($benefice)
             ]
         );
     }
@@ -68,6 +86,7 @@ class PaymentController extends AbstractController
             $Payment->setType($type->getType());
             $Payment->setMotif($type->getMotif());
             $Payment->setMontant(intval($data["payment"]['montant']));
+            
             $Payment->setDateEnregistrement($type->getDateEnregistrement());
             $Payment->setDatePayment($type->getDatePayment());
             $Payment->setUser($type->getUser());
