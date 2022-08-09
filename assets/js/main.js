@@ -1,6 +1,6 @@
 import fullscreen from "./fullscreen";
 
-$(document).ready(function (e) {
+$(document).jquery(function (e) {
     $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD HH:MM',
         icons: {

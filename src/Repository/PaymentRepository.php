@@ -40,16 +40,22 @@ class PaymentRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByMonth(string $date)
+    public function findByMonth(string $datebe, string $datemonth)
     {
-        return $this->createQueryBuilder('s')
-            ->where('s.date_payment > :today')
-            
-         
-            ->setParameter('today', $date)
-            
-            ->getQuery()
-            ->getResult();
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Payment p
+            WHERE p.date_payment
+            BETWEEN :datemonth 
+            AND :datebe
+            '
+        )->setParameter('datemonth', $datemonth)
+        ->setParameter('datebe', $datebe);
+
+        // returns an array of Product objects
+        return $query->getResult();
     }
 
 //    /**

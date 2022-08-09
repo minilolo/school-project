@@ -68,20 +68,7 @@ class PaymentType extends AbstractType
                 DateTimeType::class,
                 [
                     'label' => 'Date de payment :',
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'attr' => [
-                        'class' => 'datetimepicker',
-                    ],
-                    'format' => 'Y-m-d H:i',
-                ]
-            )
-            ->add(
-                'date_enregistrement',
-                DateTimeType::class,
-                [
-                    'label' => 'Date :',
-                    'widget' => 'single_text',
+                    'widget' => 'choice',
                     'html5' => false,
                     'attr' => [
                         'class' => 'datetimepicker',

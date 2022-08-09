@@ -71,21 +71,15 @@ class StudentController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(ClassRoom $class, PaymentRepository $repositoryPayer)
+    public function list(ClassRoom $class)
     {
         
         
         $studentList = $this->repository->findByClassSchoolYearField($this->getUser(), $class);
-        $StudentFarany = array();
-        $date = date('y-m-d');
-        $payment = $repositoryPayer->findByMonth($date);
         
-        if ((sizeof($payment) - 1) >= 1){
-            for ($i = 0; $i <= (sizeof($payment) - 1); $i++) {
-                $studentPayer = $this->repository->findByEcolage($this->getUser(), $class, $payment[$i]);
-                $StudentFarany = array_push($studentPayer);
-            }
-        }
+        
+        
+        
         
         
         
@@ -94,7 +88,7 @@ class StudentController extends AbstractBaseController
             [
                 'students' => $studentList,
                 'classe' => $class,
-                'payer' => $StudentFarany
+                
                 
             ]
         );
@@ -107,13 +101,32 @@ class StudentController extends AbstractBaseController
      *
      * @return Response
      */
-    public function StudentEcolage(ClassRoom $class) 
+    public function StudentEcolage(ClassRoom $classe, PaymentRepository $repositoryPayer) 
     {
+        $studentList = $this->repository->findByClassSchoolYearField($this->getUser(), $classe);
+        $date = date('y-m-d');
+        $datemonth = date('y-m');
+        $datemonth = $datemonth . "-01";
+        $payment = $repositoryPayer->findByMonth($date, $datemonth);
         
-        $studentPayer = $this->getUser();
-        var_dump($studentPayer->getRoles());
+        if ((sizeof($payment)) >= 1){
+            for ($i = 0; $i <= (sizeof($payment) - 1); $i++) {
+                $studentPayer = $this->repository->findByEcolage($this->getUser(), $classe, $payment[$i]);
+                $StudentFarany = array_push($studentPayer);
+            }
+        }
+        
+        
+        
         return $this->render(
-            'admin/content/student/_student_ecolage.html.twig'
+            'admin/content/student/_student_ecolage.html.twig',
+            [
+                
+                'students2' => $studentPayer,
+                'classe' => $classe,
+                
+                
+            ]
         );
     }
 

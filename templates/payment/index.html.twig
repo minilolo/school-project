@@ -36,7 +36,7 @@
                     <tbody>
                     {% for payment in payments %}
                         <tr>
-                            <td>{{ payment.montant }}</td>
+                            <td>{{ payment.montant }} Ar</td>
                             <td>{{ payment.type }}</td>
                             <td>{{ payment.motif }}</td>
                             <td>{{ payment.getDatePayment().format('Y-m-d') }}</td>
@@ -56,17 +56,17 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         {% for tot in total %}
-                            <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }} Ar</li>
                         {% endfor %}
                         </ol>
                         <ol class="breadcrumb">
                         {% for sor in sortie %}
-                            <li class="breadcrumb-item active" aria-current="page">Somme des sorties : {{ sor }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">Somme des sorties : {{ sor }} Ar</li>
                         {% endfor %}
                         </ol>
                         <ol class="breadcrumb">
                         {% for benefice in benefices %}
-                            <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }} Ar</li>
                         {% endfor %}
                         </ol>
             </nav>

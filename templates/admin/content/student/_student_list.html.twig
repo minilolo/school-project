@@ -14,9 +14,9 @@
                     <div class="col-md-6 text-right">
                         
                         <a href="{{ path('student_manage',{"classe":classe.id}) }}" class="btn btn-primary">Nouveau</a>
-                        
+                        <a href="{{ path('student_ecolage',{"classe":classe.id}) }}" class="btn btn-primary">Ecolage payé</a>
                     </div>
-                    <a href="{{ path('student_ecolage',{"classe":classe.id}) }}" class="btn btn-primary">koko</a>
+                    
                 </div>
                 <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>

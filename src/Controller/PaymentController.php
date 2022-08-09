@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Manager\SekolikoEntityManager;
+use DateTime;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -83,11 +84,12 @@ class PaymentController extends AbstractController
             
             
             $montantt = 10000;
+            $date = new DateTime();
             $Payment->setType($type->getType());
             $Payment->setMotif($type->getMotif());
             $Payment->setMontant(intval($data["payment"]['montant']));
             
-            $Payment->setDateEnregistrement($type->getDateEnregistrement());
+            $Payment->setDateEnregistrement($date);
             $Payment->setDatePayment($type->getDatePayment());
             $Payment->setUser($type->getUser());
             $em->persist($Payment);
