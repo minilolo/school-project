@@ -45,4 +45,29 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByImmatriculation(String $im)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.imatriculation = :im')
+            
+            
+            
+            
+            ->setParameter('im', $im)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findbyTypeRole(string $role)
+    {
+        return $this->createQueryBuilder('s')
+
+            ->where('s.roles LIKE :role')
+           
+            ->setParameter('role', '%"'.$role.'"%')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -86,4 +86,18 @@ class StudentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByUser(User $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.deletedAt is NULL')
+            
+            ->andWhere('s.user = :user')
+            
+            ->setParameter('status', false)
+            ->setParameter('user', $user)
+            
+            ->getQuery()
+            ->getResult();
+    }
 }
