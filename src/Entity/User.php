@@ -153,6 +153,11 @@ class User implements UserInterface
     private $LesPayments;
 
     /**
+     * @ORM\OneToMany(targetEntity=Assiduite::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $assiduites;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -163,6 +168,7 @@ class User implements UserInterface
         $this->isEnabled = false;
         $this->payments = new ArrayCollection();
         $this->LesPayments = new ArrayCollection();
+        $this->assiduites = new ArrayCollection();
     }
 
     /**
@@ -705,6 +711,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($lesPayment->getUser() === $this) {
                 $lesPayment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Assiduite[]
+     */
+    public function getAssiduites(): Collection
+    {
+        return $this->assiduites;
+    }
+
+    public function addAssiduite(Assiduite $assiduite): self
+    {
+        if (!$this->assiduites->contains($assiduite)) {
+            $this->assiduites[] = $assiduite;
+            $assiduite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssiduite(Assiduite $assiduite): self
+    {
+        if ($this->assiduites->removeElement($assiduite)) {
+            // set the owning side to null (unless already changed)
+            if ($assiduite->getUser() === $this) {
+                $assiduite->setUser(null);
             }
         }
 
