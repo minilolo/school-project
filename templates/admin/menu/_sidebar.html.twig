@@ -116,15 +116,20 @@
                     <span class="icon-holder">
                         <i class="c-red-500 ti-settings"></i>
                     </span>
-                        <span class="title">Infrastructure</span>
+                        <span class="title">Assiduite</span>
                         <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
-                            <a href="{{ path('room_list') }}">
-                                <span class="title">Salle</span>
+                            <a href="{{ path('assiduite') }}">
+                                <span class="title">Liste</span>
+                            </a>
+                        </li>
+                        <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                            <a href="{{ path('assiduide_liste') }}">
+                                <span class="title">Manage</span>
                             </a>
                         </li>
                     </ul>

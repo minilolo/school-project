@@ -26,7 +26,7 @@ class AssiduiteType extends AbstractType
                 ]
             ])
             ->add('motif')
-            ->add('date')
+            
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'query_builder' => function (EntityRepository  $er) {

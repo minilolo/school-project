@@ -91,7 +91,7 @@ class SekolikoDashboardController extends AbstractBaseController
 
         $requestString = $request->get('q');
         $Evenement = $Caca->findByEvent(1);
-        var_dump($Evenement);
+        
         $entities =  $this->studentRepository->findAll();
         $ent = array();
         

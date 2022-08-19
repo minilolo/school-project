@@ -91,6 +91,7 @@ class PaymentController extends AbstractController
             $Payment->setDateEnregistrement($date);
             $Payment->setDatePayment($type->getDatePayment());
             $Payment->setUser($type->getUser());
+            
             $em->persist($Payment);
             $em->flush();
             
