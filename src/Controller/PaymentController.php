@@ -77,8 +77,7 @@ class PaymentController extends AbstractController
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+            
             $data = $request->request->all();
             $type = $form->getData();
             
@@ -94,7 +93,7 @@ class PaymentController extends AbstractController
             $Payment->setUser($type->getUser());
             $em->persist($Payment);
             $em->flush();
-            // ... perform some action, such as saving the task to the database
+            
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
             return $this->redirectToRoute('app_payment');
         }

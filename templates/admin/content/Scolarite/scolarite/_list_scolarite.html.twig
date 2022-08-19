@@ -21,7 +21,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>Poste</th>
+                        <th>Matricule</th>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
                             <th>Action</th>
                         {% endif %}
@@ -31,31 +31,31 @@
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>Poste</th>
+                        <th>Matricule</th>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
                             <th>Action</th>
                         {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
-                    {% for scolarite in scolarites %}
-                        {% if scolarite.deletedAt  == null %}
+                    {% for el in eleve %}
+                        {% if el.deletedAt  == null %}
                             <tr>
-                                <td>{{ scolarite.user.nom }}</td>
-                                <td>{{ scolarite.user.prenom }}</td>
-                                <td>{{ scolarite.type.libelle }}</td>
+                                <td>{{ el.getNom() }}</td>
+                                <td>{{ el.getPrenom() }}</td>
+                                <td>{{ el.getImatriculation() }}</td>
                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
                                     <td>
                                         <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                           href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
+                                           href="{{ path('scolarite_manage',{'id': el.id,'type':types.id}) }}">
                                             <i class="ti-pencil"></i>
                                         </a>
                                         <a class="btn btn-outline-primary btn-sm" title="Details"
-                                           href="{{ path('scolarite_user_details',{'id': scolarite.id }) }}">
+                                           href="{{ path('scolarite_user_details',{'id': el.id }) }}">
                                             <i class="ti-eye"></i>
                                         </a>
                                         <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                           href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
+                                           href="{{ path('scolarite_remove',{'id':el.id}) }}">
                                             <i class="ti-trash"></i>
                                         </a>
                                     </td>

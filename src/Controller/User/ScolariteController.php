@@ -11,6 +11,8 @@ use App\Controller\AbstractBaseController;
 use App\Entity\Scolarite;
 use App\Entity\ScolariteType;
 use App\Repository\ScolariteRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,33 +34,24 @@ class ScolariteController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(ScolariteRepository $repository, ScolariteType $type)
+    public function list(ScolariteRepository $repository, UserRepository $userRepository, ScolariteType $type)
     {
+        $user = $userRepository->findAll();
+        $varRole = "ROLE_PROFS";
+        $koko = $userRepository->findbyTypeRole($varRole);
+        
+        
         return $this->render(
             'admin/content/Scolarite/scolarite/_list_scolarite.html.twig',
             [
                 'scolarites' => $repository->findBySchoolYear($this->getUser(), $type),
                 'types' => $type,
+                'eleve' => $koko
             ]
         );
     }
 
-    /**
-     * @param Scolarite $scolarite
-     *
-     * @Route("/details/{id}",name="scolarite_user_details")
-     *
-     * @return Response
-     */
-    public function details(Scolarite $scolarite)
-    {
-        return $this->render(
-            'admin/content/Scolarite/scolarite/_details.html.twig',
-            [
-                'personel' => $scolarite,
-            ]
-        );
-    }
+   
 
     /**
      * @param Request        $request
@@ -127,6 +120,30 @@ class ScolariteController extends AbstractBaseController
         $scolarite->getUser()->setPassword($plainPassword);
 
         return $scolarite;
+    }
+
+ /**
+     * 
+     *
+     * @Route("/details/{id}",name="scolarite_user_details")
+     *
+     * 
+     * @param Scolarite $scolarite
+     * 
+     * @return Response
+     */
+    public function details(Request $request, $id, ScolariteRepository $repository) : Response
+    {
+        
+        var_dump($id);
+        $koko = $repository->findOneBy(['user' => $id]);
+        
+        return $this->render(
+            'admin/content/Scolarite/scolarite/_details.html.twig',
+            [
+                'personel' => $koko,
+            ]
+        );
     }
 
     /**
