@@ -1,0 +1,36 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_scolarite_list =true %}
+{% set menu_scolarite =true %}
+{% set menu_user =true %}
+
+{% block title %}Scolarité{% endblock %}
+
+
+{% block stylesheets %}
+         <style>
+                    #calendrier{
+                        width: 80%;
+                        margin : auto;
+                    }     
+        </style>
+{% endblock %}
+{% block content %}
+ <div id="calendrier">
+                       
+ </div>
+ 
+{% endblock %}
+
+{% block javascript %}
+ <script >
+          window.onload = () => {
+            let calendarElt = Document.querySelector('#calendrier')
+
+            let calendar = new fullcalendar.calendar(calendarElt, {
+                initial: 'dayGridMonth'
+            })
+
+            calendar.render()
+          }             
+ </script>
+{% endblock %}

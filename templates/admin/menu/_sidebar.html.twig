@@ -5,7 +5,7 @@
                 <div class="peer peer-greed"><a class="sidebar-link td-n" href="{{ path('admin_dashboard') }}">
                         <div class="peers ai-c fxw-nw">
                             <div class="peer">
-                                <div class="logo"><img src="{{ asset('images/sekoliko.png') }}" alt=""></div>
+                                <div class="logo"><img src="{{ asset('images/SekolikoLogo.png') }}" alt=""></div>
                             </div>
                             <div class="peer peer-greed"><h5 class="lh-1 mB-0 logo-text">SEKOLIKO</h5></div>
                         </div>
@@ -67,6 +67,7 @@
                         <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
                     </ul>
                 </li>
+                
                 <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
                     <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -91,6 +92,14 @@
                         </li>
                         <li><a href="{{ path('scolarite_type_list') }}">Poste</a></li>
                     </ul>
+                </li>
+                <li class="nav-item  {% if menu_docs is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('app_calendar_calendrier') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-info-alt"></i>
+                    </span>
+                    <span class="title">Calendar</span>
+                </a>
                 </li>
             {% endif %}
             {% if not is_granted('ROLE_SUPER_ADMIN') %}

@@ -24,6 +24,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use App\Entity\Calendar;
+use App\Form\CalendarType;
+use App\Repository\CalendarRepository;
 
 /**
  * Class SekolikoDashboardController.
@@ -79,7 +82,7 @@ class SekolikoDashboardController extends AbstractBaseController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function dashboardController(Request $request, ManagerRegistry $doctrine): Response
+    public function dashboardController(Request $request, ManagerRegistry $doctrine, CalendarRepository $Caca): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -87,8 +90,8 @@ class SekolikoDashboardController extends AbstractBaseController
         $em = $doctrine->getManager();
 
         $requestString = $request->get('q');
-
-        
+        $Evenement = $Caca->findByEvent(1);
+        var_dump($Evenement);
         $entities =  $this->studentRepository->findAll();
         $ent = array();
         
