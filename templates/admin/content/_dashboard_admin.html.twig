@@ -6,6 +6,25 @@
         <div class="row gap-20">
             <div class="alert-info">Bienvenue sur le tableau de bord du {{ app.user.etsName }}</div>
             <div class="masonry-item w-100">
+                <div class ="content-box">
+                    <div class ="content-title">
+                        <h2>Timeline</h2>
+                    </div>
+                    <div class ="timeline-content">
+                    
+                        <ul>
+                            {% for ev in event %}
+                                <li>
+                                    <div class ="choice-title">
+                                        <h3>
+                                            {{ev.getTitle}}
+                                        </h3>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
                 <div class="row gap-20">
                     <div class="col-md-3">
                         <div class="layers bd bgc-white p-20">
@@ -64,11 +83,16 @@
         </div>
     </div>
 
-     {{ form_start(form) }}
-            {{ form_row(form) }}
-        {{ form_end(form) }}   
+          
+        <div class="Recherche">
 
-        <div class="row">
+
+                {{ form_start(form) }}
+                        {{ form_row(form) }}
+                {{ form_end(form) }} 
+
+
+            <div class="row">
         <div class="col-md-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                 <div class="row">
@@ -121,4 +145,7 @@
             
         </div>
     </div>  
+
+        </div>
+        
 {% endblock %}

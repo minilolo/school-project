@@ -124,7 +124,8 @@ class SekolikoDashboardController extends AbstractBaseController
                 'personels' => $this->profsRepository->findProfs($user, false),
                 'rooms' => $this->roomRepository->findBySchoolYear($user, true),
                 'admins' => count($this->adminRepository->findBySchoolYear($user)),
-                'ents' => $entities
+                'ents' => $entities,
+                'event' => $Evenement
         ]);
         
         return $this->render(
