@@ -82,6 +82,16 @@ class Student
     private $ecolages;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $contactMaman;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $contactResponsable;
+
+    /**
      * Student constructor.
      */
     public function __construct()
@@ -369,6 +379,30 @@ class Student
                 $ecolage->setStudent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getContactMaman(): ?string
+    {
+        return $this->contactMaman;
+    }
+
+    public function setContactMaman(string $contactMaman): self
+    {
+        $this->contactMaman = $contactMaman;
+
+        return $this;
+    }
+
+    public function getContactResponsable(): ?string
+    {
+        return $this->contactResponsable;
+    }
+
+    public function setContactResponsable(string $contactResponsable): self
+    {
+        $this->contactResponsable = $contactResponsable;
 
         return $this;
     }

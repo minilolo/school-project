@@ -1,0 +1,76 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_section = true %}
+{% block title %}Etudiant{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des fournitures</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('create_fourniture') }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                    
+                
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>number</th> 
+                        <th>date</th>  
+                        <th>Room</th> 
+                        
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>number</th>  
+                        <th>date</th>      
+                        <th>Room</th>  
+                        
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for ko in koko %}
+                        <tr>
+                            <td>{{ ko.getName() }}</td>
+                            <td>{{ ko.getNumber() }}</td>
+                            <td>{{ ko.getDateInsert().format('Y-m-d') }}</td>
+                            <td>{{ ko.getRoom().getName() }}</td>                       
+                        </tr>
+                    {% endfor %}
+
+                    
+                    </tbody>
+                </table>
+                <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                    
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        {% for tot in total %}
+                            <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }} Ar</li>
+                        {% endfor %}
+                        </ol>
+                        <ol class="breadcrumb">
+                        {% for sor in sortie %}
+                            <li class="breadcrumb-item active" aria-current="page">Somme des sorties : {{ sor }} Ar</li>
+                        {% endfor %}
+                        </ol>
+                        <ol class="breadcrumb">
+                        {% for benefice in benefices %}
+                            <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }} Ar</li>
+                        {% endfor %}
+                        </ol>
+            </nav>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+{% endblock %}

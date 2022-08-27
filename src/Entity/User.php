@@ -158,6 +158,11 @@ class User implements UserInterface
     private $assiduites;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $Session;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -165,7 +170,7 @@ class User implements UserInterface
         $this->reservations = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
         $this->histories = new ArrayCollection();
-        $this->isEnabled = false;
+        $this->isEnabled = true;
         $this->payments = new ArrayCollection();
         $this->LesPayments = new ArrayCollection();
         $this->assiduites = new ArrayCollection();
@@ -743,6 +748,18 @@ class User implements UserInterface
                 $assiduite->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSession(): ?string
+    {
+        return $this->Session;
+    }
+
+    public function setSession(string $Session): self
+    {
+        $this->Session = $Session;
 
         return $this;
     }

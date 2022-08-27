@@ -21,7 +21,7 @@ class CalendarController extends AbstractController
         ]);
     }
 
-    #[Route('/ShowCalendar', name: 'app_calendar_calendrier', methods: ['GET'])]
+    #[Route('/ShowCalendar', name: 'app_calendar_calendrier', methods: ['GET','PUT'])]
     public function ShowCalendar(CalendarRepository $calendarRepository): Response
     {
         $koko = $calendarRepository->findAll();

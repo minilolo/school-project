@@ -34,14 +34,25 @@
                 </a>
             </li>
             {% if not is_granted('ROLE_SUPER_ADMIN') %}
-                <li class="nav-item">
-                    <a class="sidebar-link" href="{{ path('app_payment') }}">
+                
+
+                <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
-                        <i class="c-orange-500 ti-calendar"></i>
+                         <i class="ti-credit-card"></i>
                     </span>
                         <span class="title">Paiement</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('app_payment') }}">Liste</a></li>
+                        <li><a href="{{ path('cantine_create') }}">Cantine et autre</a></li>
+                        <li><a href="{{ path('ecolage_create') }}">Ecolage</a></li>
+                    </ul>
                 </li>
+
                 <li class="nav-item">
                     <a class="sidebar-link" href="{{ path('session_list') }}">
                     <span class="icon-holder">
@@ -65,6 +76,21 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ path('administrator_list') }}">Personnel Administratif</a></li>
                         <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                         <i class="ti-home"></i>
+                    </span>
+                        <span class="title">Infrastructure</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('room_list') }}">Salle</a></li>
+                        <li><a href="{{ path('app_fourniture') }}">Fourniture</a></li>
                     </ul>
                 </li>
                 
@@ -111,29 +137,34 @@
                         <span class="title">Matières</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}open actived{% endif %}">
-                    <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="c-red-500 ti-settings"></i>
-                    </span>
-                        <span class="title">Assiduite</span>
-                        <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
-                            <a href="{{ path('assiduite') }}">
-                                <span class="title">Liste</span>
+                {% if not is_granted('ROLE_PROFS') %}
+
+                        <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}open actived{% endif %}">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                            <span class="icon-holder">
+                                <i class="c-red-500 ti-settings"></i>
+                            </span>
+                                <span class="title">Assiduite</span>
+                                <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                                    <a href="{{ path('assiduite') }}">
+                                        <span class="title">Liste</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                                    <a href="{{ path('assiduide_liste') }}">
+                                        <span class="title">Manage</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
-                            <a href="{{ path('assiduide_liste') }}">
-                                <span class="title">Manage</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
+                {% endif %}
+                
                 <li class="nav-item">
                     <a class="sidebar-link" href="{{ path('section_list') }}">
                     <span class="icon-holder">

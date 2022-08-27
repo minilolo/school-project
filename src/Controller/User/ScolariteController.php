@@ -135,7 +135,7 @@ class ScolariteController extends AbstractBaseController
     public function details(Request $request, $id, ScolariteRepository $repository) : Response
     {
         
-        var_dump($id);
+        // var_dump($id);
         $koko = $repository->findOneBy(['user' => $id]);
         
         return $this->render(

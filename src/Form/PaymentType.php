@@ -35,7 +35,8 @@ class PaymentType extends AbstractType
                 'type',
                 TextType::class,
                 [
-                    'label' => 'Type'
+                    'label' => 'Type',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -60,6 +61,10 @@ class PaymentType extends AbstractType
                     'class' => User::class,
                     'choice_label' => 'username',
                     'label' => 'Au nom de',
+                    'query_builder' => function (EntityRepository  $er) {
+                        return $er->createQueryBuilder('u')
+                        ->where('u.roles LIKE \'["ROLE_ETUDIANT"]\'');
+                    },
                     'required' => false,
                 ]
             )
@@ -67,7 +72,7 @@ class PaymentType extends AbstractType
                 'date_payment',
                 DateTimeType::class,
                 [
-                    'label' => 'Date de payment :',
+                    'label' => 'Date de paiement :',
                     'widget' => 'choice',
                     'html5' => false,
                     'attr' => [

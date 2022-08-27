@@ -94,7 +94,7 @@ class StudentRepository extends ServiceEntityRepository
             
             ->andWhere('s.user = :user')
             
-            ->setParameter('status', false)
+            
             ->setParameter('user', $user)
             
             ->getQuery()

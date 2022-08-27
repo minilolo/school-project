@@ -54,7 +54,7 @@ class UserType extends AbstractType
                 DateTimeType::class,
                 [
                     'label' => 'Date de naissance',
-                    'widget' => 'single_text',
+                    'widget' => 'choice',
                     'html5' => false,
                     
                     'format' => 'Y-m-d H:i',
