@@ -153,11 +153,11 @@ class ScolariteController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function remove(Scolarite $scolarite)
+    public function remove($id, ScolariteRepository $repository)
     {
-        $type = $scolarite->getType()->getId();
-
-        if ($this->em->remove($scolarite)) {
+        $type = $repository->findOneBy(['user' => $id]);
+        
+        if ($this->em->remove($type)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
