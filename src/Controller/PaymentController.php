@@ -26,10 +26,13 @@ class PaymentController extends AbstractController
      */
     private $repository;
 
-
+    /**
+     *
+     * @route("/payment", name="app_payment")
+     */
 
     
-    #[Route('/payment', name: 'app_payment')]
+//    #[Route('/payment', name: 'app_payment')]
     public function index(PaymentRepository $repository): Response
     {
         $manisa = 0;
@@ -37,7 +40,7 @@ class PaymentController extends AbstractController
         $benefice = 0;
         $PaymentList = $repository->findAll();
         $entrer = $repository->findBy(
-            ['Type' => 'Entrer']
+            ['Type' => 'Entrée']
         );
         $sortieArray = $repository->findBy(
             ['Type' => 'Sortie']
@@ -63,9 +66,12 @@ class PaymentController extends AbstractController
         );
     }
 
-    
+    /**
+     *
+     * @route("/paymentAdd", name="payment_create", methods={"POST","GET"})
+     */
 
-    #[Route('/paymentAdd', name: 'payment_create', methods: ["GET", "POST"])]
+//    #[Route('/paymentAdd', name: 'payment_create', methods: ["GET", "POST"])]
     public function create(Request $request, EntityManagerInterface $em, Payment $Payment = null)
     {
         

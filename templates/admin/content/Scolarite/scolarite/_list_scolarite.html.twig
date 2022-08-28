@@ -38,6 +38,34 @@
                     </tr>
                     </tfoot>
                     <tbody>
+
+                    {% for sec in secretaire %}
+                        {% if sec.deletedAt  == null %}
+                            <tr>
+                                <td>{{ sec.getNom() }}</td>
+                                <td>{{ sec.getPrenom() }}</td>
+                                <td>{{ sec.getImatriculation() }}</td>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                           href="{{ path('scolarite_manage',{'id': sec.id,'type':types.id}) }}">
+                                            <i class="ti-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-outline-primary btn-sm" title="Details"
+                                           href="{{ path('scolarite_user_details',{'id': sec.id }) }}">
+                                            <i class="ti-eye"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                           href="{{ path('scolarite_remove',{'id':sec.id}) }}">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+
+
                     {% for el in eleve %}
                         {% if el.deletedAt  == null %}
                             <tr>

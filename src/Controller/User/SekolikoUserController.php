@@ -1,7 +1,4 @@
 <?php
-/**
- * Julien Rajerison <julienrajerison5@gmail.com>.
- **/
 
 namespace App\Controller\User;
 

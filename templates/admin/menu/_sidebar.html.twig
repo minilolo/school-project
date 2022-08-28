@@ -7,7 +7,7 @@
                             <div class="peer">
                                 <div class="logo"><img src="{{ asset('images/SekolikoLogo.png') }}" alt=""></div>
                             </div>
-                            <div class="peer peer-greed"><h5 class="lh-1 mB-0 logo-text">SEKOLIKO</h5></div>
+                            <div class="peer peer-greed"><h5 class="lh-1 mB-0 logo-text">FAMMMi</h5></div>
                         </div>
                     </a></div>
                 <div class="peer">
@@ -83,8 +83,8 @@
                             <a href="#">
                                 <span>Personnel Scolarité</span>
                                 <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                            </span>
+                                    <i class="ti-angle-right"></i>
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
                                 {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
@@ -102,7 +102,7 @@
                 </a>
                 </li>
             {% endif %}
-            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
                     <a class="sidebar-link" href="{{ path('subject_list') }}">
                     <span class="icon-holder">

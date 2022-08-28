@@ -165,7 +165,7 @@ class User implements UserInterface
         $this->reservations = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
         $this->histories = new ArrayCollection();
-        $this->isEnabled = false;
+        $this->isEnabled = true;
         $this->payments = new ArrayCollection();
         $this->LesPayments = new ArrayCollection();
         $this->assiduites = new ArrayCollection();

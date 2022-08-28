@@ -33,11 +33,22 @@ class PaymentType extends AbstractType
         $builder
             ->add(
                 'type',
-                TextType::class,
+                ChoiceType::class,
                 [
-                    'label' => 'Type'
+                    'choices' => [
+                        'Entrée' => 'Entrée',
+                        'Sortie' => 'Sortie',
+                    ],
                 ]
             )
+
+//            ->add(
+//                'type',
+//                TextType::class,
+//                [
+//                    'label' => 'Type'
+//                ]
+//            )
             ->add(
                 'motif',
                 TextType::class,

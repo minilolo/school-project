@@ -34,7 +34,7 @@ class ScolariteType extends AbstractType
                 DateTimeType::class,
                 [
                     'html5' => false,
-                    'widget' => 'single_text',
+                    'widget' => 'choice',
                     'label' => 'Date d\'entrer',
                     'attr' => [
                         'class' => 'datetimepicker',
@@ -75,7 +75,7 @@ class ScolariteType extends AbstractType
                 DateTimeType::class,
                 [
                     'label' => 'Date CIN',
-                    'widget' => 'single_text',
+                    'widget' => 'choice',
                     'html5' => false,
                     'attr' => [
                         'class' => 'datetimepicker',
