@@ -70,4 +70,15 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findBySession(string $session)
+    {
+        return $this->createQueryBuilder('s')
+
+            ->where('s.Session LIKE :session')
+           
+            ->setParameter('session', $session)
+            ->getQuery()
+            ->getResult();
+    }
 }

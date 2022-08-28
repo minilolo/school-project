@@ -9,8 +9,10 @@ use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Session;
 use App\Entity\Student;
+use App\Entity\User;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,18 +28,18 @@ class SessionController extends AbstractBaseController
     /**
      * @param SessionRepository $repository
      *
-     * @Route("/list",name="session_list")
+     * @Route("/list/{id}",name="session_list",methods={"GET"})
      *
      * @return Response
      */
-    public function list(SessionRepository $repository)
+    public function list(SessionRepository $repository, UserRepository $RepoUser, $id)
     {
-        $session = $repository->findByScoolYear(
-            $this->getUser() ? $this->getUser()->getSchoolYear() : null,
-            $this->getUser() ? $this->getUser()->getEtsName() : null
-        );
-
-        return $this->render('admin/content/EtsSession/_session_list.html.twig', ['sessions' => $session]);
+        
+        $user = $RepoUser->findOneBy(['id' => $id]);
+        $koko = $user->getSession();
+        $ThisYear = $RepoUser->findBySession($koko, "ROLE_ETUDIANT");
+        
+        return $this->render('admin/content/EtsSession/_session_list.html.twig', ['sessions' => $ThisYear]);
     }
 
     /**
@@ -61,7 +63,7 @@ class SessionController extends AbstractBaseController
     }
 
     /**
-     * @Route("/manage/{id?}",name="session_manage")
+     * @Route("/manage/{id?}",name="session_manage",methods={"GET"})
      *
      * @param Request $request
      * @param Session $session
