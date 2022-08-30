@@ -47,10 +47,10 @@ class PaymentController extends AbstractController
         );
        
         
-        for ($i = 0; $i <= (sizeof($entrer) - 1); $i++){
+        for ($i = 0; $i <= (sizeof($entrer) - 1); $i++) {
                 $manisa = $manisa + intval($entrer[$i]->GetMontant());
         }
-        for ($i = 0; $i <= (sizeof($sortieArray) - 1); $i++){
+        for ($i = 0; $i <= (sizeof($sortieArray) - 1); $i++) {
             $sortie = $sortie + intval($sortieArray[$i]->GetMontant());
         }
         $benefice = $manisa - $sortie;
@@ -58,7 +58,7 @@ class PaymentController extends AbstractController
         return $this->render(
             'payment/index.html.twig',
             [
-                'payments' => $PaymentList, 
+                'payments' => $PaymentList,
                 'total'  =>   array($manisa),
                 'sortie' => array($sortie),
                 'benefices' => array($benefice)
@@ -83,7 +83,6 @@ class PaymentController extends AbstractController
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $data = $request->request->all();
             $type = $form->getData();
             
@@ -103,6 +102,8 @@ class PaymentController extends AbstractController
             
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
             return $this->redirectToRoute('app_payment');
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
         }
         
         return $this->renderForm('payment/payment_mange.html.twig', [
@@ -112,8 +113,4 @@ class PaymentController extends AbstractController
 
         return $this->render('payment/payment_mange.html.twig');
     }
-
-
-    
-   
 }

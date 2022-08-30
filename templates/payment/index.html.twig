@@ -54,21 +54,26 @@
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                     
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                        {% for tot in total %}
-                            <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }} Ar</li>
-                        {% endfor %}
-                        </ol>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ol class="breadcrumb">
+                                {% for tot in total %}
+                                    <li class="breadcrumb-item active" aria-current="page">Somme des entrees : {{ tot }} Ar</li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
+
                         <ol class="breadcrumb">
                         {% for sor in sortie %}
                             <li class="breadcrumb-item active" aria-current="page">Somme des sorties : {{ sor }} Ar</li>
                         {% endfor %}
                         </ol>
-                        <ol class="breadcrumb">
-                        {% for benefice in benefices %}
-                            <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }} Ar</li>
-                        {% endfor %}
-                        </ol>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ol class="breadcrumb">
+                            {% for benefice in benefices %}
+                                <li class="breadcrumb-item active" aria-current="page">Balance : {{ benefice }} Ar</li>
+                            {% endfor %}
+                            </ol>
+                        {% endif %}
             </nav>
                 </div>
             
