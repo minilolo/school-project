@@ -71,7 +71,7 @@ class ScolariteController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $scolarite->setType($type);
             $this->beforeScolaritePersist($scolarite, $form, $type);
-
+            
             if ($this->em->save($scolarite, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 

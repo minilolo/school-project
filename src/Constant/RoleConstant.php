@@ -18,6 +18,7 @@ class RoleConstant
         'SuperAdmin' => 'ROLE_SUPER_ADMIN',
         'Scolarite' => 'ROLE_SCOLARITE',
         'Trésorier' => 'ROLE_TRESORIER',
+        'secretaire' => 'ROLE_SECRETAIRE',
     ];
 
     public const ROLE_PROFS = 1;

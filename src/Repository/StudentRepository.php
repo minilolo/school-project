@@ -69,6 +69,19 @@ class StudentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findByClassroom(ClassRoom $classRoom)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.deletedAt is NULL')
+            
+            ->andWhere('s.classe = :classRoom')
+            ->andWhere('s.isRenvoie = :status')
+            ->setParameter('status', false)
+            ->setParameter('classRoom', $classRoom)
+            
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findByEcolage(User $user, ClassRoom $classRoom, Payment $student)
     {

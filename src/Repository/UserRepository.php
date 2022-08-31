@@ -76,7 +76,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
 
             ->where('s.Session LIKE :session')
-            ->andWhere('u.etsName = :etsName')
+            ->andWhere('s.roles LIKE :role')
             ->setParameter('role', '%"'.$role.'"%')
             ->setParameter('session', $session)
             ->getQuery()

@@ -19,7 +19,7 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') or is_granted('ROLE_PROFS') %}
                             <th>Action</th>
                         {% endif %}
                     </tr>
@@ -27,7 +27,7 @@
                     <tfoot>
                     <tr>
                         <th>Nom</th>
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') or is_granted('ROLE_PROFS') %}
                             <th>Action</th>
                         {% endif %}
                     </tr>
@@ -37,6 +37,22 @@
                         <tr>
                             <td>{{ room.name }}</td>
                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION')  %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('room_manage',{'id': room.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-primary btn-sm" title="Reservation"
+                                       href="{{ path('room_reservations_list',{'id':room.id}) }}">
+                                        <i class="ti-list"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('remove_room',{'id':room.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
+                            {% if is_granted('ROLE_PROFS') %}
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" title="Modifier"
                                        href="{{ path('room_manage',{'id': room.id}) }}">

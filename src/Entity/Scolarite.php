@@ -104,6 +104,11 @@ class Scolarite
     private $classSubjects;
 
     /**
+     * @ORM\ManyToOne(targetEntity=ClassRoom::class, inversedBy="Profs")
+     */
+    private $classRoom;
+
+    /**
      * Scolarite constructor.
      */
     public function __construct()
@@ -424,6 +429,18 @@ class Scolarite
                 $classSubject->setProfs(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClassRoom(): ?ClassRoom
+    {
+        return $this->classRoom;
+    }
+
+    public function setClassRoom(?ClassRoom $classRoom): self
+    {
+        $this->classRoom = $classRoom;
 
         return $this;
     }

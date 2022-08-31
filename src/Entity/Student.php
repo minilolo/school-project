@@ -92,6 +92,11 @@ class Student
     private $contactResponsable;
 
     /**
+     * @ORM\OneToMany(targetEntity=PresenceEleve::class, mappedBy="Eleve")
+     */
+    private $presenceEleves;
+
+    /**
      * Student constructor.
      */
     public function __construct()
@@ -99,6 +104,7 @@ class Student
         $this->isRenvoie = false;
         $this->studentNotes = new ArrayCollection();
         $this->ecolages = new ArrayCollection();
+        $this->presenceEleves = new ArrayCollection();
     }
 
     /**
@@ -403,6 +409,36 @@ class Student
     public function setContactResponsable(string $contactResponsable): self
     {
         $this->contactResponsable = $contactResponsable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PresenceEleve>
+     */
+    public function getPresenceEleves(): Collection
+    {
+        return $this->presenceEleves;
+    }
+
+    public function addPresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if (!$this->presenceEleves->contains($presenceElefe)) {
+            $this->presenceEleves[] = $presenceElefe;
+            $presenceElefe->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if ($this->presenceEleves->removeElement($presenceElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($presenceElefe->getEleve() === $this) {
+                $presenceElefe->setEleve(null);
+            }
+        }
 
         return $this;
     }
