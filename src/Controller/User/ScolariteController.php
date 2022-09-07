@@ -37,18 +37,25 @@ class ScolariteController extends AbstractBaseController
     public function list(ScolariteRepository $repository, UserRepository $userRepository, ScolariteType $type)
     {
         $user = $userRepository->findAll();
-        $varRole = "ROLE_PROFS";
-        $koko = $userRepository->findbyTypeRole($varRole);
-        
+        $varProf = "ROLE_PROFS";
+        $varSecretaire = "ROLE_SECRETAIRE";
+        $koko = $userRepository->findbyTypeRole($varProf);
+        $kiki = $userRepository->findbyTypeRole($varSecretaire);
         
         return $this->render(
             'admin/content/Scolarite/scolarite/_list_scolarite.html.twig',
             [
                 'scolarites' => $repository->findBySchoolYear($this->getUser(), $type),
                 'types' => $type,
-                'eleve' => $koko
+                'eleve' => $koko,
+                'secretaire' => $kiki
             ]
         );
+    }
+
+    public function SecretaireList(ScolariteRepository $repository, UserRepository $userRepository, ScolariteType $type)
+    {
+
     }
 
    
@@ -110,7 +117,7 @@ class ScolariteController extends AbstractBaseController
         $re = '/prof/mi';
         $isProfessor = preg_match_all($re, $type->getLibelle(), $matches, PREG_SET_ORDER, 0);
         $scolarite->getUser()->setRoles([
-            RoleConstant::ROLE_SEKOLIKO[$isProfessor ? 'Professeur' : 'Scolarite'],
+            RoleConstant::ROLE_SEKOLIKO[$isProfessor ? 'Professeur' : 'Secretaire'],
         ]);
 
         $plainPassword = $this->passencoder->encodePassword(
@@ -135,7 +142,12 @@ class ScolariteController extends AbstractBaseController
     public function details(Request $request, $id, ScolariteRepository $repository) : Response
     {
         
+
         // var_dump($id);
+
+//        var_dump($id);
+
+
         $koko = $repository->findOneBy(['user' => $id]);
         
         return $this->render(
@@ -153,11 +165,16 @@ class ScolariteController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function remove($id, ScolariteRepository $repository)
+
+    
+    public function remove(UserRepository $userRepository, $id, Scolarite $scolarite, ScolariteRepository $repository)
     {
+
+        $type = $scolarite->getType()->getId();
         $type = $repository->findOneBy(['user' => $id]);
-        
-        if ($this->em->remove($type)) {
+
+        if ($this->em->remove($scolarite)) {
+
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);

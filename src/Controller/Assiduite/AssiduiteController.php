@@ -54,7 +54,11 @@ class AssiduiteController extends AbstractController
         ]);
     }
 
-    #[Route('/assiduité', name: 'assiduide_liste')]
+    /**
+     * @Route("/assiduite", name="assiduide_liste")
+     */
+
+//    #[Route('/assiduité', name: 'assiduide_liste')]
     public function liste(AssiduiteRepository $repository)
     {
         $manisa = 0;

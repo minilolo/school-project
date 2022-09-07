@@ -1,7 +1,4 @@
 <?php
-/**
- * Julien Rajerison <julienrajerison5@gmail.com>.
- **/
 
 namespace App\Constant;
 
@@ -16,7 +13,7 @@ class RoleConstant
         'Etudiant' => 'ROLE_ETUDIANT',
         'Direction' => 'ROLE_DIRECTION',
         'SuperAdmin' => 'ROLE_SUPER_ADMIN',
-        'Scolarite' => 'ROLE_SCOLARITE',
+        'Secretaire' => 'ROLE_SECRETAIRE',
         'Trésorier' => 'ROLE_TRESORIER',
         'secretaire' => 'ROLE_SECRETAIRE',
     ];

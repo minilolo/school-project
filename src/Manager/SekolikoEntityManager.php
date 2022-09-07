@@ -61,6 +61,7 @@ class SekolikoEntityManager
     public function save(object $entity, User $user = null, FormInterface $form = null)
     {
         $user ? : $this->tokenStorage->getToken()->getUser();
+        
         $this->customField($entity, $user);
         if (method_exists($entity, 'getUser')) {
             $this->customField($entity->getUser(), $user);
@@ -69,12 +70,18 @@ class SekolikoEntityManager
                 $this->uploadPhoto($brochureFile, $entity, $user);
             }
         }
-
+        
         try {
+            
             if (!$entity->getId()) {
+                
                 $this->em->persist($entity);
+                $this->em->flush();
+                
             }
-            $this->em->flush();
+            
+           
+            
 
             return true;
         } catch (Exception $exception) {

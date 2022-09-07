@@ -17,7 +17,7 @@ security:
         ROLE_STUDENT: ROLE_ETUDIANT
         ROLE_DIRECTION: ROLE_DIRECTION
         ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
-        ROLE_SCOLARITE: ROLE_SCOLARITE
+        ROLE_SECRETAIRE: ROLE_SECRETAIRE
         ROLE_TRESORIER: ROLE_TRESORIER
     firewalls:
         dev:
@@ -47,4 +47,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
          - { path: ^/%locale%/admin, roles: [ ROLE_ADMIN , ROLE_SUPER_ADMIN , ROLE_PROFS ] }
+
+         - { path: ^/%locale%/admin, roles: [ ROLE_ADMIN , ROLE_SUPER_ADMIN , ROLE_PROFS , ROLE_SECRETAIRE] }
+

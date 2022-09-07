@@ -26,10 +26,13 @@ class PaymentController extends AbstractController
      */
     private $repository;
 
-
+    /**
+     *
+     * @route("/payment", name="app_payment")
+     */
 
     
-    #[Route('/payment', name: 'app_payment')]
+//    #[Route('/payment', name: 'app_payment')]
     public function index(PaymentRepository $repository): Response
     {
         $manisa = 0;
@@ -37,17 +40,17 @@ class PaymentController extends AbstractController
         $benefice = 0;
         $PaymentList = $repository->findAll();
         $entrer = $repository->findBy(
-            ['Type' => 'Entrer']
+            ['Type' => 'Entrée']
         );
         $sortieArray = $repository->findBy(
             ['Type' => 'Sortie']
         );
        
         
-        for ($i = 0; $i <= (sizeof($entrer) - 1); $i++){
+        for ($i = 0; $i <= (sizeof($entrer) - 1); $i++) {
                 $manisa = $manisa + intval($entrer[$i]->GetMontant());
         }
-        for ($i = 0; $i <= (sizeof($sortieArray) - 1); $i++){
+        for ($i = 0; $i <= (sizeof($sortieArray) - 1); $i++) {
             $sortie = $sortie + intval($sortieArray[$i]->GetMontant());
         }
         $benefice = $manisa - $sortie;
@@ -55,7 +58,7 @@ class PaymentController extends AbstractController
         return $this->render(
             'payment/index.html.twig',
             [
-                'payments' => $PaymentList, 
+                'payments' => $PaymentList,
                 'total'  =>   array($manisa),
                 'sortie' => array($sortie),
                 'benefices' => array($benefice)
@@ -63,9 +66,12 @@ class PaymentController extends AbstractController
         );
     }
 
-    
+    /**
+     *
+     * @route("/paymentAdd", name="payment_create", methods={"POST","GET"})
+     */
 
-    #[Route('/paymentAdd', name: 'payment_create', methods: ["GET", "POST"])]
+//    #[Route('/paymentAdd', name: 'payment_create', methods: ["GET", "POST"])]
     public function create(Request $request, EntityManagerInterface $em, Payment $Payment = null)
     {
         
@@ -77,7 +83,6 @@ class PaymentController extends AbstractController
         );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $data = $request->request->all();
             $type = $form->getData();
             
@@ -97,6 +102,8 @@ class PaymentController extends AbstractController
             
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
             return $this->redirectToRoute('app_payment');
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
         }
         
         return $this->renderForm('payment/payment_mange.html.twig', [
@@ -106,6 +113,7 @@ class PaymentController extends AbstractController
 
         return $this->render('payment/payment_mange.html.twig');
     }
+
 
 
     #[Route('/payment/cantineAdd', name: 'cantine_create', methods: ["GET", "POST"])]
@@ -188,7 +196,8 @@ class PaymentController extends AbstractController
         ]);
 
 
-        return $this->render('payment/payment_mange.html.twig');
+       
     }
    
+
 }
