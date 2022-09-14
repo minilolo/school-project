@@ -39,7 +39,7 @@ Step 6. Create new database then, create new file `.env.local`, add `.env` conte
 
 Step 7. Update database schema
 
-`- bin/console doctrine:schema:update --force`
+`- php bin/console doctrine:schema:update --force`
 
 Step 6. Run server
 

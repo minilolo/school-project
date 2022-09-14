@@ -109,7 +109,7 @@ class SekolikoDashboardController extends AbstractBaseController
             $task = $form->getData();
             
             $koko = $this->UserRep->findByImmatriculation($task);
-           
+
             if (sizeof($koko) != 0) {
                 $entities = $this->studentRepository->findByUser($koko[0]);
                 
