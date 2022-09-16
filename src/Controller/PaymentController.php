@@ -113,4 +113,91 @@ class PaymentController extends AbstractController
 
         return $this->render('payment/payment_mange.html.twig');
     }
+
+
+
+    #[Route('/payment/cantineAdd', name: 'cantine_create', methods: ["GET", "POST"])]
+    public function cantineCreate(Request $request, EntityManagerInterface $em, Payment $Payment = null)
+    {
+        
+
+        $Payment = $Payment ?? new Payment;
+        $form = $this->createForm(
+            PaymentType::class,
+            $Payment
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            
+            $data = $request->request->all();
+            $type = $form->getData();
+            var_dump($type->getMotif());
+            
+            $montantt = 10000;
+            $date = new DateTime();
+            $Payment->setType("entrer");
+            $Payment->setMotif($type->getMotif());
+            $Payment->setMontant(intval($data["payment"]['montant']));
+            
+            $Payment->setDateEnregistrement($date);
+            $Payment->setDatePayment($type->getDatePayment());
+            $Payment->setUser($type->getUser());
+            var_dump($type->getMotif());
+            $em->persist($Payment);
+            $em->flush();
+            
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+            return $this->redirectToRoute('app_payment');
+        }
+        
+        
+        return $this->renderForm('payment/cantine_create.html.twig', [
+            'form' => $form,
+        ]);
+
+    }
+
+    #[Route('/payment/ecolageAdd', name: 'ecolage_create', methods: ["GET", "POST"])]
+    public function ecolageCreate(Request $request, EntityManagerInterface $em, Payment $Payment = null)
+    {
+        
+
+        $Payment = $Payment ?? new Payment;
+        $form = $this->createForm(
+            PaymentType::class,
+            $Payment
+        );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() ) {
+            
+            $data = $request->request->all();
+            $type = $form->getData();
+            
+            
+            $montantt = 10000;
+            $date = new DateTime();
+            $Payment->setType("entrer");
+            $Payment->setMotif("Ecolage");
+            $Payment->setMontant(intval($data["payment"]['montant']));
+            
+            $Payment->setDateEnregistrement($date);
+            $Payment->setDatePayment($type->getDatePayment());
+            $Payment->setUser($type->getUser());
+            
+            $em->persist($Payment);
+            $em->flush();
+            
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+            return $this->redirectToRoute('app_payment');
+        }
+        
+        return $this->renderForm('payment/ecolage_create.html.twig', [
+            'form' => $form,
+        ]);
+
+
+       
+    }
+   
+
 }

@@ -68,4 +68,16 @@ class ScolariteRepository extends ServiceEntityRepository
                 ->setParameter('etsName', $user->getEtsName())->getQuery()->getResult()
         );
     }
+
+    public function findByUser(User $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.deletedAt is NULL')
+            ->andWhere('s.user = :user')
+            
+            ->setParameter('user', $user)
+            
+            ->getQuery()
+            ->getResult();
+    }
 }

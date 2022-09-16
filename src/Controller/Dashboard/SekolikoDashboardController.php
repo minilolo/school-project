@@ -86,7 +86,7 @@ class SekolikoDashboardController extends AbstractBaseController
     {
         /** @var User $user */
         $user = $this->getUser();
-    
+        
         $em = $doctrine->getManager();
 
         $requestString = $request->get('q');
@@ -109,9 +109,11 @@ class SekolikoDashboardController extends AbstractBaseController
             $task = $form->getData();
             
             $koko = $this->UserRep->findByImmatriculation($task);
-
+            
             if (sizeof($koko) != 0) {
+                
                 $entities = $this->studentRepository->findByUser($koko[0]);
+                  
                 
             }
             
@@ -124,7 +126,8 @@ class SekolikoDashboardController extends AbstractBaseController
                 'personels' => $this->profsRepository->findProfs($user, false),
                 'rooms' => $this->roomRepository->findBySchoolYear($user, true),
                 'admins' => count($this->adminRepository->findBySchoolYear($user)),
-                'ents' => $entities
+                'ents' => $entities,
+                'event' => $Evenement
         ]);
         
         return $this->render(

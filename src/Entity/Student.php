@@ -82,6 +82,21 @@ class Student
     private $ecolages;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $contactMaman;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $contactResponsable;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PresenceEleve::class, mappedBy="Eleve")
+     */
+    private $presenceEleves;
+
+    /**
      * Student constructor.
      */
     public function __construct()
@@ -89,6 +104,7 @@ class Student
         $this->isRenvoie = false;
         $this->studentNotes = new ArrayCollection();
         $this->ecolages = new ArrayCollection();
+        $this->presenceEleves = new ArrayCollection();
     }
 
     /**
@@ -367,6 +383,60 @@ class Student
             // set the owning side to null (unless already changed)
             if ($ecolage->getStudent() === $this) {
                 $ecolage->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getContactMaman(): ?string
+    {
+        return $this->contactMaman;
+    }
+
+    public function setContactMaman(string $contactMaman): self
+    {
+        $this->contactMaman = $contactMaman;
+
+        return $this;
+    }
+
+    public function getContactResponsable(): ?string
+    {
+        return $this->contactResponsable;
+    }
+
+    public function setContactResponsable(string $contactResponsable): self
+    {
+        $this->contactResponsable = $contactResponsable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PresenceEleve>
+     */
+    public function getPresenceEleves(): Collection
+    {
+        return $this->presenceEleves;
+    }
+
+    public function addPresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if (!$this->presenceEleves->contains($presenceElefe)) {
+            $this->presenceEleves[] = $presenceElefe;
+            $presenceElefe->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if ($this->presenceEleves->removeElement($presenceElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($presenceElefe->getEleve() === $this) {
+                $presenceElefe->setEleve(null);
             }
         }
 
