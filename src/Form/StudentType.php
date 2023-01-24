@@ -68,6 +68,22 @@ class StudentType extends AbstractType
                 'contactParent',
                 TextType::class,
                 [
+                    'label' => 'Contact téléphonique du père',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'contactMaman',
+                TextType::class,
+                [
+                    'label' => 'Contact téléphonique de la maman',
+                    'required' => false,
+                ]
+            )   
+            ->add(
+                'contactResponsable',
+                TextType::class,
+                [
                     'label' => 'Contact téléphonique parentale ou parain',
                     'required' => false,
                 ]

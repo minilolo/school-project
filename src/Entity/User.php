@@ -155,6 +155,16 @@ class User implements UserInterface
     private $assiduites;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $Session;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PresenceEleve::class, mappedBy="User")
+     */
+    private $presenceEleves;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -166,6 +176,7 @@ class User implements UserInterface
         $this->payments = new ArrayCollection();
         $this->LesPayments = new ArrayCollection();
         $this->assiduites = new ArrayCollection();
+        $this->presenceEleves = new ArrayCollection();
     }
 
     /**
@@ -738,6 +749,48 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($assiduite->getUser() === $this) {
                 $assiduite->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSession(): ?string
+    {
+        return $this->Session;
+    }
+
+    public function setSession(string $Session): self
+    {
+        $this->Session = $Session;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PresenceEleve>
+     */
+    public function getPresenceEleves(): Collection
+    {
+        return $this->presenceEleves;
+    }
+
+    public function addPresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if (!$this->presenceEleves->contains($presenceElefe)) {
+            $this->presenceEleves[] = $presenceElefe;
+            $presenceElefe->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresenceElefe(PresenceEleve $presenceElefe): self
+    {
+        if ($this->presenceEleves->removeElement($presenceElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($presenceElefe->getUser() === $this) {
+                $presenceElefe->setUser(null);
             }
         }
 

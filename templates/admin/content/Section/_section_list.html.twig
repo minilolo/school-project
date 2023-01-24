@@ -38,6 +38,16 @@
                                         </a>
                                     </div>
                                 {% endif %}
+                                {% if is_granted('ROLE_PROFS')%}
+                                    <div class="w-100 d-block text-center">
+                                        
+                                        <a class="btn btn-outline-primary" title="Liste classe"
+                                           href="{{ path('class_room_list',{'id': section.id}) }}">
+                                            <i class="ti-list"></i>
+                                        </a>
+                                        
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

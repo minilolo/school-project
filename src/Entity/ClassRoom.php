@@ -72,6 +72,11 @@ class ClassRoom
     private $emploiDuTemps;
 
     /**
+     * @ORM\OneToMany(targetEntity=Scolarite::class, mappedBy="classRoom")
+     */
+    private $Profs;
+
+    /**
      * ClassRoom constructor.
      *
      * @throws Exception
@@ -82,6 +87,7 @@ class ClassRoom
         $this->classSubjects = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->emploiDuTemps = new ArrayCollection();
+        $this->Profs = new ArrayCollection();
     }
 
     /**
@@ -321,6 +327,36 @@ class ClassRoom
             // set the owning side to null (unless already changed)
             if ($emploiDuTemp->getClasse() === $this) {
                 $emploiDuTemp->setClasse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Scolarite>
+     */
+    public function getProfs(): Collection
+    {
+        return $this->Profs;
+    }
+
+    public function addProf(Scolarite $prof): self
+    {
+        if (!$this->Profs->contains($prof)) {
+            $this->Profs[] = $prof;
+            $prof->setClassRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProf(Scolarite $prof): self
+    {
+        if ($this->Profs->removeElement($prof)) {
+            // set the owning side to null (unless already changed)
+            if ($prof->getClassRoom() === $this) {
+                $prof->setClassRoom(null);
             }
         }
 

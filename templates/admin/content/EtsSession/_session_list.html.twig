@@ -8,16 +8,15 @@
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 class="c-grey-900 mB-20">Liste des sessions</h4>
+                        <h4 class="c-grey-900 mB-20">Listes des eleves cette année</h4>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <a href="{{ path('session_manage') }}" class="btn btn-primary">Nouveau</a>
-                    </div>
+
                 </div>
                 <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th>Nom sessions</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
                         {% if is_granted('ROLE_ADMIN') %}
                             <th>Action</th>
                         {% endif %}
@@ -26,6 +25,7 @@
                     <tfoot>
                     <tr>
                         <th>Nom</th>
+                        <th>Prenom</th>
                         {% if is_granted('ROLE_ADMIN') %}
                             <th>Action</th>
                         {% endif %}
@@ -34,7 +34,8 @@
                     <tbody>
                     {% for session in sessions %}
                         <tr>
-                            <td>{{ session.name }}</td>
+                            <td>{{ session.getNom() }}</td>
+                            <td>{{ session.getPrenom() }}</td>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" title="Modifier"

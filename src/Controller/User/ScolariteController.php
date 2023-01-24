@@ -78,7 +78,7 @@ class ScolariteController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $scolarite->setType($type);
             $this->beforeScolaritePersist($scolarite, $form, $type);
-
+            
             if ($this->em->save($scolarite, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
@@ -142,7 +142,11 @@ class ScolariteController extends AbstractBaseController
     public function details(Request $request, $id, ScolariteRepository $repository) : Response
     {
         
+
+        // var_dump($id);
+
 //        var_dump($id);
+
 
         $koko = $repository->findOneBy(['user' => $id]);
         
@@ -161,6 +165,8 @@ class ScolariteController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
+
+    
     public function remove(UserRepository $userRepository, $id, Scolarite $scolarite, ScolariteRepository $repository)
     {
 
@@ -168,6 +174,7 @@ class ScolariteController extends AbstractBaseController
         $type = $repository->findOneBy(['user' => $id]);
 
         if ($this->em->remove($scolarite)) {
+
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);

@@ -47,11 +47,17 @@ class Room
     private $deletedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity=Fourniture::class, mappedBy="room")
+     */
+    private $fourniture;
+
+    /**
      * Room constructor.
      */
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->fourniture = new ArrayCollection();
     }
 
     /**
@@ -169,5 +175,35 @@ class Room
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return Collection<int, Fourniture>
+     */
+    public function getFourniture(): Collection
+    {
+        return $this->fourniture;
+    }
+
+    public function addFourniture(Fourniture $fourniture): self
+    {
+        if (!$this->fourniture->contains($fourniture)) {
+            $this->fourniture[] = $fourniture;
+            $fourniture->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFourniture(Fourniture $fourniture): self
+    {
+        if ($this->fourniture->removeElement($fourniture)) {
+            // set the owning side to null (unless already changed)
+            if ($fourniture->getRoom() === $this) {
+                $fourniture->setRoom(null);
+            }
+        }
+
+        return $this;
     }
 }
